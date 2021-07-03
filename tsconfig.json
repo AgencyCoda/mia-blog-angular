@@ -2,6 +2,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@agencycoda/mia-blog-panel": [
+        "dist/agencycoda/mia-blog-panel/agencycoda-mia-blog-panel",
+        "dist/agencycoda/mia-blog-panel"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
