@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build2": "ng build --prod --project=@agencycoda/mia-blog && cd dist/agencycoda/mia-blog/ && npm publish",
+    "build3": "ng build --prod --project=@agencycoda/mia-blog-panel && cd dist/agencycoda/mia-blog-panel/ && npm publish"
   },
   "private": true,
   "dependencies": {
