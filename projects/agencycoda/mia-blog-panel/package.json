@@ -7,7 +7,8 @@
     "ngx-quill": ">=14.1.2",
     "@agencycoda/mia-auth": ">=11.0.28",
     "@agencycoda/mia-core": ">=11.0.28",
-    "@agencycoda/mia-form": ">=11.0.40"
+    "@agencycoda/mia-form": ">=11.0.40",
+    "@agencycoda/mia-blog": ">=0.0.1"
   },
   "dependencies": {
     "tslib": "^2.1.0"
