@@ -3,6 +3,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@agencycoda/mia-blog": [
+        "dist/agencycoda/mia-blog/agencycoda-mia-blog",
+        "dist/agencycoda/mia-blog"
+      ],
       "@agencycoda/mia-blog-panel": [
         "dist/agencycoda/mia-blog-panel/agencycoda-mia-blog-panel",
         "dist/agencycoda/mia-blog-panel"
