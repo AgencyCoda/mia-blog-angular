@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
 import { MiaPost } from '@agencycoda/mia-blog';
+import { Observable } from 'dist/agencycoda/mia-blog-panel/node_modules/rxjs';
 
 @Component({
   selector: 'mia-post-edit-page',
@@ -11,14 +12,21 @@ export class MiaPostEditPageComponent implements OnInit {
 
   @ViewChild('miaForm') miaForm!: MiaFormComponent;
 
+  @Input() showSaveButton = true;
+  @Input() item: MiaPost = new MiaPost();
+
   config!: MiaFormConfig;
-  item: MiaPost = new MiaPost();
+  
   isLoading = false;
 
   constructor() { }
 
   ngOnInit(): void {
     this.loadConfig();
+  }
+
+  submit(): Observable<any> {
+    return this.miaForm.submit();
   }
 
   onClickSave() {
@@ -32,9 +40,9 @@ export class MiaPostEditPageComponent implements OnInit {
     this.config = new MiaFormConfig();
     this.config.hasSubmit = false;
     this.config.fields = [
-      { key: 'photo_featured', type: MiaField.TYPE_PHOTO, label: 'Featured Photo' },
-      { key: 'photo_featured_mobile', type: MiaField.TYPE_PHOTO, label: 'Featured Photo in mobile' },
-      { key: 'title', type: MiaField.TYPE_STRING, label: 'Title' },
+      { key: 'photo_featured', type: MiaField.TYPE_PHOTO_HEADER, label: 'Featured Photo' },
+      //{ key: 'photo_featured_mobile', type: MiaField.TYPE_PHOTO, label: 'Featured Photo in mobile' },
+      { key: 'title', type: MiaField.TYPE_STRING_TITLE, label: 'Title' },
       { key: 'summary', type: MiaField.TYPE_TEXT, label: 'Summary' },
       { key: 'content', type: MiaField.TYPE_HTML, label: 'Content', extra: { height: 400 } },
     ];
