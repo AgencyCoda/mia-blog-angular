@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
 import { MiaPost } from '@agencycoda/mia-blog';
-import { Observable } from 'dist/agencycoda/mia-blog-panel/node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mia-post-edit-page',

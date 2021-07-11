@@ -4,7 +4,9 @@
   "peerDependencies": {
     "@angular/common": ">=12.0.5",
     "@angular/core": ">=12.0.5",
-    "ngx-quill": ">=14.1.2",
+    "@types/quill": "^1.3.7",
+    "ngx-quill": "^14.1.2",
+    "quill": "^1.3.7",
     "@agencycoda/mia-auth": ">=11.0.28",
     "@agencycoda/mia-core": ">=11.0.28",
     "@agencycoda/mia-form": ">=11.0.41",
