@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MiaPostEditPageComponent } from 'projects/agencycoda/mia-blog-panel/src/public-api';
+import { MiaPost } from 'projects/agencycoda/mia-blog/src/public-api';
 
 @Component({
   selector: 'app-add',
@@ -10,9 +11,12 @@ export class AddComponent implements OnInit {
 
   @ViewChild('postEditor') postEditor!: MiaPostEditPageComponent;
 
+  item = new MiaPost();
+
   constructor() { }
 
   ngOnInit(): void {
+    this.item.title = 'test title preseted';
   }
 
   onClickPublish() {

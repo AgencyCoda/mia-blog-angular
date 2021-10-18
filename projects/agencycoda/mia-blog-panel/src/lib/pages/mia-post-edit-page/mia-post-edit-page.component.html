@@ -1,4 +1,4 @@
-<h1>Create Post</h1>
+<h1 *ngIf="showTitlePage">Create Post</h1>
 
 <mia-form *ngIf="!isLoading" #miaForm [config]="config" [item]="item"></mia-form>
 <button *ngIf="!isLoading && showSaveButton" (click)="onClickSave()">Save</button>

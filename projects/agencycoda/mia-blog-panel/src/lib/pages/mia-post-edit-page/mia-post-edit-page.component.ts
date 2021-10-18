@@ -13,6 +13,7 @@ export class MiaPostEditPageComponent implements OnInit {
   @ViewChild('miaForm') miaForm!: MiaFormComponent;
 
   @Input() showSaveButton = true;
+  @Input() showTitlePage = true;
   @Input() item: MiaPost = new MiaPost();
 
   config!: MiaFormConfig;
@@ -42,7 +43,7 @@ export class MiaPostEditPageComponent implements OnInit {
     this.config.fields = [
       { key: 'photo_featured', type: MiaField.TYPE_PHOTO_HEADER, label: 'Featured Photo' },
       //{ key: 'photo_featured_mobile', type: MiaField.TYPE_PHOTO, label: 'Featured Photo in mobile' },
-      { key: 'title', type: MiaField.TYPE_STRING_TITLE, label: 'Title' },
+      { key: 'title', type: MiaField.TYPE_STRING_TITLE, label: 'Title', placeholder: "Your title" },
       { key: 'summary', type: MiaField.TYPE_TEXT, label: 'Summary' },
       { key: 'content', type: MiaField.TYPE_HTML, label: 'Content', extra: { height: 400 } },
     ];
