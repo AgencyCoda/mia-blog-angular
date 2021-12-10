@@ -12,15 +12,18 @@ import { MiaFormModule } from '@agencycoda/mia-form';
 /** Components */
 import { MiaBlogPanelComponent } from './mia-blog-panel.component';
 import { MiaPostEditPageComponent } from './pages/mia-post-edit-page/mia-post-edit-page.component';
+import { MiaCreatorPostPageComponent } from './pages/mia-creator-post-page/mia-creator-post-page.component'
 
 /** Libraries */
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+
 
 
 @NgModule({
   declarations: [
     MiaBlogPanelComponent,
-    MiaPostEditPageComponent
+    MiaPostEditPageComponent,
+    MiaCreatorPostPageComponent
   ],
   imports: [
     // Angular
@@ -41,6 +44,7 @@ import { QuillModule } from 'ngx-quill'
     // Components
     MiaBlogPanelComponent,
     MiaPostEditPageComponent,
+    MiaCreatorPostPageComponent,
 
     // External Libraries
     QuillModule

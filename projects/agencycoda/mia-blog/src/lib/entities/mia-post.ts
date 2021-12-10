@@ -17,6 +17,13 @@ export class MiaPost {
     photo_featured = '';
     photo_featured_mobile = '';
     created_at = '';
+    parent_id?: number;
+    creator_id?: number;
+    seo_title = '';
+    seo_description = '';
+    seo_keywords = '';
+    visibility = 0;
+    featured_ord = 0;
 
     comments_count?: number = 0;
     comments?: Array<MiaComment>;
