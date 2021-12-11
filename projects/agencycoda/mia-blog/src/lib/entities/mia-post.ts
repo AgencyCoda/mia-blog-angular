@@ -17,8 +17,8 @@ export class MiaPost {
     is_featured = 0;
     language_id?: number;
     status = 0;
-    photo_featured = '';
-    photo_featured_mobile = '';
+    photo_featured?: any;
+    photo_featured_mobile?: any;
     created_at = '';
     parent_id?: number;
     creator_id?: number;
@@ -30,4 +30,5 @@ export class MiaPost {
 
     comments_count?: number = 0;
     comments?: Array<MiaComment>;
+    relateds?: Array<MiaPost> = [];
 }

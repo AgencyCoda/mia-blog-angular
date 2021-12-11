@@ -6,6 +6,7 @@ import { MiaQuery, nil } from '@agencycoda/mia-core';
 import { MiaBlogService, MiaPost } from '@agencycoda/mia-blog';
 import { MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
 import { MiaLanguageService } from '@agencycoda/mia-language-core';
+import { RelatedFieldComponent } from '../../fields/related-field/related-field.component';
 
 @Component({
   selector: 'mia-creator-post-page',
@@ -72,7 +73,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
   loadPost(postId: number) {
     this.isLoading = true;
     this.postService
-    .fetchOb(postId)
+    .fetchWithRelation(postId, ['relateds'])
     .pipe(tap(post => this.post = post))
     .pipe(tap(post => this.onClickTab(this.tabs[0], 0)))
     .subscribe(res => this.isLoading = false);
@@ -111,6 +112,15 @@ export class MiaCreatorPostPageComponent implements OnInit {
           { key: 'seo_title', type: MiaField.TYPE_STRING, label: 'Meta Title' },
           { key: 'seo_description', type: MiaField.TYPE_TEXT, label: 'Meta Description' },
           { key: 'seo_keywords', type: MiaField.TYPE_STRING, label: 'Meta Keywords' },
+
+        ] }  },
+
+        { key: 'box-related', type: MiaField.TYPE_BOX, extra: { fields: [
+
+          { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Related content</h4>', classes: 'label-form' },
+          { key: '', type: MiaField.TYPE_LABEL, label: 'Connect related content from your News to give readers more to explore.', classes: 'label-form' },
+
+          { key: 'relateds', type: MiaField.TYPE_CUSTOM, label: '', extra: { component: RelatedFieldComponent } },
 
         ] }  },
 
