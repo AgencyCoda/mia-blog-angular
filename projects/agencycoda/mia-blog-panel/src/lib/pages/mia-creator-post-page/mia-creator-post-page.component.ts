@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MiaCreatorPostConfig } from '../../entities/mia-creator-post-config';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { nil } from '@agencycoda/mia-core';
+import { MiaQuery, nil } from '@agencycoda/mia-core';
 import { MiaBlogService, MiaPost } from '@agencycoda/mia-blog';
-import { MiaField } from '@agencycoda/mia-form';
+import { MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
+import { MiaLanguageService } from '@agencycoda/mia-language-core';
 
 @Component({
   selector: 'mia-creator-post-page',
@@ -13,7 +14,12 @@ import { MiaField } from '@agencycoda/mia-form';
 })
 export class MiaCreatorPostPageComponent implements OnInit {
 
+  @ViewChild('miaForm') miaForm!: MiaFormComponent;
+
   config!: MiaCreatorPostConfig;
+
+  configForm?: MiaFormConfig;
+  isSending = false;
 
   isLoading = false;
 
@@ -25,7 +31,8 @@ export class MiaCreatorPostPageComponent implements OnInit {
   constructor(
     protected route: ActivatedRoute,
     protected navigator: Router,
-    protected postService: MiaBlogService
+    protected postService: MiaBlogService,
+    protected languageService: MiaLanguageService
   ) { }
 
   ngOnInit(): void {
@@ -33,11 +40,41 @@ export class MiaCreatorPostPageComponent implements OnInit {
     this.loadParams();
   }
 
+  processWithBaseService(item: any) {
+    let serviceSave: Promise<any> = this.postService.save(item);
+    serviceSave.then(result => {
+      this.isSending = false;
+    }).catch(error => {
+      this.isSending = false;
+    });
+  }
+
+  save(item: any) {
+    if(this.isSending){
+      return;
+    }
+
+    this.isSending = true;
+    this.processWithBaseService(item);
+  }
+
+  onClickSave() {
+    this.miaForm.submit().subscribe(result => {
+      this.save(result);
+    });
+  }
+
+  onClickContinue() {
+    this.sectionSelectedIndex++;
+    this.onClickTab(this.tabs[this.sectionSelectedIndex], this.sectionSelectedIndex);
+  }
+
   loadPost(postId: number) {
     this.isLoading = true;
     this.postService
     .fetchOb(postId)
     .pipe(tap(post => this.post = post))
+    .pipe(tap(post => this.onClickTab(this.tabs[0], 0)))
     .subscribe(res => this.isLoading = false);
   }
 
@@ -48,36 +85,77 @@ export class MiaCreatorPostPageComponent implements OnInit {
       return this.route.params;
     }))
     .pipe(map(params => params.id))
+    .pipe(tap(postId => {
+      if(postId == undefined){
+        this.onClickTab(this.tabs[0], 0);
+      }
+    }))
     .pipe(nil())
-    .subscribe(postId => this.loadPost(postId));
+    .subscribe(postId => this.loadPost(postId as number));
   }
 
   loadConfig() {
     this.tabs = [
-      { title: 'General', fields: [
-        { key: 'firstname', type: 'string', label: 'Nombre' },
-        { key: 'lastname', type: 'string', label: 'Apellido' },
+      { title: 'Content', fields: [
+        { key: 'title', type: MiaField.TYPE_STRING_TITLE, placeholder: 'Write your title', caption: '' },
+        { key: 'photo_featured', type: MiaField.TYPE_PHOTO_HEADER, label: 'Upload image Header', caption: 'Foto del header.', extra: { saveObj: true } },
+        { key: 'content', type: MiaField.TYPE_HTML, label: 'Contenido del post', caption: '', extra: { height: 600, theme: 'bubble' } },
       ] },
-      { title: 'SEO', fields: [
-        { key: 'photo', type: MiaField.TYPE_PHOTO, label: 'Photo', caption: 'Foto del usuario.' },
-      ] },
-      { title: 'Advanced', fields: [
-        { key: 'email', type: MiaField.TYPE_EMAIL, label: 'Email' },
-      ] },
+      { title: 'Settings', fields: [
+        
+        { key: 'box-seo', type: MiaField.TYPE_BOX, extra: { fields: [
+
+          { key: '', type: MiaField.TYPE_LABEL, label: '<h4>SEO</h4>', classes: 'label-form' },
+          { key: '', type: MiaField.TYPE_LABEL, label: 'Lorem ipsum dolor sit amet consectetur adropising lorem ipsum dlor sit amet', classes: 'label-form' },
+
+          { key: 'seo_title', type: MiaField.TYPE_STRING, label: 'Meta Title' },
+          { key: 'seo_description', type: MiaField.TYPE_TEXT, label: 'Meta Description' },
+          { key: 'seo_keywords', type: MiaField.TYPE_STRING, label: 'Meta Keywords' },
+
+        ] }  },
+
+        { key: 'box-language', type: MiaField.TYPE_BOX, extra: { fields: [
+
+          { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Language</h4>', classes: 'label-form' },
+          { key: '', type: MiaField.TYPE_LABEL, label: 'Select interface language', classes: 'label-form' },
+
+          { key: 'language_id', type: MiaField.TYPE_SELECT_SERVICE, label: 'Langueage', caption: '', extra: { title: '', service: this.languageService, field_display: 'title', field_list: 'language-auto', query: new MiaQuery() } },
+
+        ] }  },
+
+        { key: 'box-visibility', type: MiaField.TYPE_BOX, extra: { fields: [
+
+          { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Visibility</h4>', classes: 'label-form' },
+          { key: '', type: MiaField.TYPE_LABEL, label: 'Loralsk adklsj adklsj lkasj asklj ad ', classes: 'label-form' },
+
+          { key: 'visibility', type: 'select', label: 'Estado', extra: {
+            options: [
+              { id: MiaPost.VISIBILITY_NOT_PUBLIC, title: 'Not Public' },
+              { id: MiaPost.VISIBILITY_PUBLIC, title: 'Public (default)' },
+            ]
+          }},
+
+        ] }  },
+
+      ] }
     ];
   }
 
   onClickTab(tab: { title: string, fields: Array<MiaField> }, index: number) {
-    /*if(this.configForm != undefined){
+    if(this.configForm != undefined){
       this.miaForm.updateItemByForm();
     }
 
     let config = new MiaFormConfig();
     config.hasSubmit = false;
     config.fields = tab.fields;
-    config.service = this.data.service;
-    this.configForm = config;*/
+    config.service = this.postService;
+    this.configForm = config;
 
     this.sectionSelectedIndex = index;
+  }
+
+  stopSending(){
+    this.isSending = false;
   }
 }

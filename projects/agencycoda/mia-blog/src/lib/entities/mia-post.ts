@@ -6,6 +6,9 @@ export class MiaPost {
     static STATUS_PUBLISHED = 1;
     static STATUS_CANCELLED = 2;
 
+    static VISIBILITY_NOT_PUBLIC = 0;
+    static VISIBILITY_PUBLIC = 1;
+
     id = 0;
     title = '';
     slug = '';
