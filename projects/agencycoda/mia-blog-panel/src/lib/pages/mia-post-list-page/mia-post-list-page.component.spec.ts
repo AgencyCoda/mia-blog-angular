@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MiaBlogPanelComponent } from './mia-blog-panel.component';
+import { MiaPostListPageComponent } from './mia-post-list-page.component';
 
-describe('MiaBlogPanelComponent', () => {
-  let component: MiaBlogPanelComponent;
-  let fixture: ComponentFixture<MiaBlogPanelComponent>;
+describe('MiaPostListPageComponent', () => {
+  let component: MiaPostListPageComponent;
+  let fixture: ComponentFixture<MiaPostListPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MiaBlogPanelComponent ]
+      declarations: [ MiaPostListPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MiaBlogPanelComponent);
+    fixture = TestBed.createComponent(MiaPostListPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

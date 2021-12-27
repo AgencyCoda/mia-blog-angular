@@ -7,7 +7,7 @@ import { QuillModule } from 'ngx-quill';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddComponent } from './pages/add/add.component';
-import { MiaCoreModule, MIA_CORE_PROVIDER } from '@agencycoda/mia-core';
+import { MiaCoreModule, MIA_CORE_PROVIDER, MIA_GOOGLE_STORAGE_PROVIDER } from '@agencycoda/mia-core';
 import { MiaAuthModule, MIA_AUTH_PROVIDER } from '@agencycoda/mia-auth';
 import { MiaFormModule } from '@agencycoda/mia-form';
 
@@ -39,6 +39,12 @@ import { MiaFormModule } from '@agencycoda/mia-form';
       useValue: {
         baseUrl: 'https://iron-radio-322514.uc.r.appspot.com/'
         //baseUrl: 'http://0.0.0.0:8080/'
+      }
+    },
+    {
+      provide: MIA_GOOGLE_STORAGE_PROVIDER,
+      useValue: {
+        bucket: 'iba-files'
       }
     },
   ],
