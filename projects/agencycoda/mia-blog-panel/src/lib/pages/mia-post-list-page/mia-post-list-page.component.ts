@@ -1,10 +1,8 @@
 import { MiaBlogService, MiaPost } from '@agencycoda/mia-blog';
-import { MiaField, MiaFormConfig } from '@agencycoda/mia-form';
-import { MiaColumn } from '@agencycoda/mia-table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MiaPageCrudComponent, MiaPageCrudConfig } from '@agencycoda/mia-layout';
-import { Router } from '@angular/router';
-import { nil } from '@agencycoda/mia-core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MiaListPostConfig } from '../../entities/mia-list-post-config';
 
 @Component({
   selector: 'lib-mia-post-list-page',
@@ -17,13 +15,16 @@ export class MiaPostListPageComponent implements OnInit {
 
   config = new MiaPageCrudConfig();
 
+  configList?: MiaListPostConfig;
+
   constructor(
     protected postService: MiaBlogService,
-    protected navigator: Router
+    protected navigator: Router,
+    protected route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.loadConfig();
+    this.loadParams();
   }
 
   onSearch(text: string) {
@@ -36,11 +37,11 @@ export class MiaPostListPageComponent implements OnInit {
 
   onAction(action: {key: string; item: any;}) {
     if(action.key == 'add'){
-      this.navigator.navigateByUrl('/mia-blog/creator/');
+      this.navigator.navigateByUrl(this.configList?.basePath + '/creator/');
     } else if (action.key == 'search') {
       this.onSearch(action.item);
     } else if(action.key == 'edit'){
-      this.navigator.navigateByUrl('/mia-blog/creator/' + action.item.id);
+      this.navigator.navigateByUrl(this.configList?.basePath + '/creator/' + action.item.id);
     } else if(action.key == 'remove'){
       this.pageComp.onClickRemove(action.item);
     }
@@ -77,11 +78,19 @@ export class MiaPostListPageComponent implements OnInit {
   }
 
   loadConfig() {
-    this.config.title = 'News';
+    this.config.title = this.configList?.title ?? 'News';
 
     this.config.buttons.push({ key: 'organize', title: 'Organize', icon: 'edit' });
     this.config.buttons.push({ key: 'add', title: '+ Add new Article', icon: 'edit' });
 
     this.loadTableConfig();
+  }
+
+  loadParams() {
+    this.route.data
+    .subscribe(params => {
+      this.configList = params as MiaListPostConfig;
+      this.loadConfig();
+    });
   }
 }
