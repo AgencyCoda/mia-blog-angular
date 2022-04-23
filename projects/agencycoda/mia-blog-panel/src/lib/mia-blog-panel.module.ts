@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /** Libraries */
 import { QuillModule } from 'ngx-quill';
@@ -58,6 +59,7 @@ import { RelatedContentModalComponent } from './modals/related-content-modal/rel
     MatDialogModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
 
     // Agency Coda
     MiaCoreModule,

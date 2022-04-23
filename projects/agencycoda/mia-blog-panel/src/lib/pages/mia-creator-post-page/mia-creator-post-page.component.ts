@@ -7,6 +7,7 @@ import { MiaBlogService, MiaPost } from '@agencycoda/mia-blog';
 import { BoxFieldComponent, MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
 import { MiaLanguageService } from '@agencycoda/mia-language-core';
 import { RelatedFieldComponent } from '../../fields/related-field/related-field.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'mia-creator-post-page',
@@ -33,7 +34,8 @@ export class MiaCreatorPostPageComponent implements OnInit {
     protected route: ActivatedRoute,
     protected navigator: Router,
     protected postService: MiaBlogService,
-    protected languageService: MiaLanguageService
+    protected languageService: MiaLanguageService,
+    protected snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,10 @@ export class MiaCreatorPostPageComponent implements OnInit {
     let serviceSave: Promise<any> = this.postService.save(item);
     serviceSave.then(result => {
       this.isSending = false;
+      this.snackBar.open('Save Successful!', '', { duration: 3000 });
     }).catch(error => {
       this.isSending = false;
+      this.snackBar.open('Error!', '', { duration: 3000 });
     });
   }
 
@@ -100,6 +104,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
       { title: 'Content', fields: [
         { key: 'title', type: MiaField.TYPE_STRING_TITLE, placeholder: 'Write your title', caption: '' },
         { key: 'photo_featured', type: MiaField.TYPE_PHOTO_HEADER, label: 'Upload image Header', caption: 'Foto del header.', extra: { saveObj: true } },
+        { key: 'summary', type: MiaField.TYPE_TEXT, placeholder: 'Summary', caption: '' },
         { key: 'content', type: MiaField.TYPE_HTML, label: 'Contenido del post', caption: '', extra: { height: 600, theme: 'bubble' } },
       ] },
       { title: 'Settings', fields: [
