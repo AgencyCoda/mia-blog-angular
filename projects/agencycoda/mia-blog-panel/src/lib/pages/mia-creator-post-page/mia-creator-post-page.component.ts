@@ -4,7 +4,7 @@ import { MiaCreatorPostConfig } from '../../entities/mia-creator-post-config';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { MiaQuery, nil } from '@agencycoda/mia-core';
 import { MiaBlogService, MiaPost } from '@agencycoda/mia-blog';
-import { MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
+import { BoxFieldComponent, MiaField, MiaFormComponent, MiaFormConfig } from '@agencycoda/mia-form';
 import { MiaLanguageService } from '@agencycoda/mia-language-core';
 import { RelatedFieldComponent } from '../../fields/related-field/related-field.component';
 
@@ -104,7 +104,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
       ] },
       { title: 'Settings', fields: [
         
-        { key: 'box-seo', type: MiaField.TYPE_BOX, extra: { fields: [
+        { key: 'box-seo', type: MiaField.TYPE_CUSTOM, extra: { component: BoxFieldComponent, fields: [
 
           { key: '', type: MiaField.TYPE_LABEL, label: '<h4>SEO</h4>', classes: 'label-form' },
           { key: '', type: MiaField.TYPE_LABEL, label: 'Lorem ipsum dolor sit amet consectetur adropising lorem ipsum dlor sit amet', classes: 'label-form' },
@@ -115,7 +115,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
 
         ] }  },
 
-        { key: 'box-related', type: MiaField.TYPE_BOX, extra: { fields: [
+        { key: 'box-related', type: MiaField.TYPE_CUSTOM, extra: { component: BoxFieldComponent, fields: [
 
           { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Related content</h4>', classes: 'label-form' },
           { key: '', type: MiaField.TYPE_LABEL, label: 'Connect related content from your News to give readers more to explore.', classes: 'label-form' },
@@ -124,7 +124,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
 
         ] }  },
 
-        { key: 'box-language', type: MiaField.TYPE_BOX, extra: { fields: [
+        { key: 'box-language', type: MiaField.TYPE_CUSTOM, extra: { component: BoxFieldComponent, fields: [
 
           { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Language</h4>', classes: 'label-form' },
           { key: '', type: MiaField.TYPE_LABEL, label: 'Select interface language', classes: 'label-form' },
@@ -133,7 +133,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
 
         ] }  },
 
-        { key: 'box-visibility', type: MiaField.TYPE_BOX, extra: { fields: [
+        { key: 'box-visibility', type: MiaField.TYPE_CUSTOM, extra: { component: BoxFieldComponent, fields: [
 
           { key: '', type: MiaField.TYPE_LABEL, label: '<h4>Visibility</h4>', classes: 'label-form' },
           { key: '', type: MiaField.TYPE_LABEL, label: 'Loralsk adklsj adklsj lkasj asklj ad ', classes: 'label-form' },

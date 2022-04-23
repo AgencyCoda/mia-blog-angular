@@ -13,7 +13,7 @@
   "private": true,
   "dependencies": {
     "@agencycoda/mia-auth": "^13.1.0",
-    "@agencycoda/mia-blog": "^0.0.6",
+    "@agencycoda/mia-blog": "^13.1.0",
     "@agencycoda/mia-core": "^13.1.0",
     "@agencycoda/mia-form": "^13.1.0",
     "@agencycoda/mia-language-core": "^0.0.2",
@@ -33,7 +33,6 @@
     "@angular/platform-browser-dynamic": "^13.1.0",
     "@angular/router": "^13.1.0",
     "@ngx-pwa/local-storage": "^13.0.3",
-    "@types/quill": "^1.3.7",
     "moment": "^2.29.1",
     "ngx-quill": "^16.1.1",
     "quill": "^1.3.7",

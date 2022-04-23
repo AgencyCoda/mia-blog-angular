@@ -1,11 +1,11 @@
 {
   "name": "@agencycoda/mia-blog",
-  "version": "0.0.9",
+  "version": "13.1.0",
   "peerDependencies": {
-    "@angular/common": ">=11.0.0",
-    "@angular/core": ">=11.0.0",
-    "@agencycoda/mia-auth": ">=11.0.28",
-    "@agencycoda/mia-core": ">=11.0.28"
+    "@angular/common": ">=13.1.0",
+    "@angular/core": ">=13.1.0",
+    "@agencycoda/mia-auth": ">=13.1.0",
+    "@agencycoda/mia-core": ">=13.1.0"
   },
   "dependencies": {
     "tslib": "^2.1.0"
