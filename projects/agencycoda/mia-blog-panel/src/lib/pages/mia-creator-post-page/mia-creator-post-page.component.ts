@@ -90,11 +90,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
       return this.route.params;
     }))
     .pipe(map(params => params.id))
-    .pipe(tap(postId => {
-      if(postId == undefined){
-        this.onClickTab(this.tabs[0], 0);
-      }
-    }))
+    .pipe(tap(postId => this.onClickTab(this.tabs[0], 0)))
     .pipe(nil())
     .subscribe(postId => this.loadPost(postId as number));
   }
@@ -157,7 +153,7 @@ export class MiaCreatorPostPageComponent implements OnInit {
   }
 
   onClickTab(tab: { title: string, fields: Array<MiaField> }, index: number) {
-    if(this.configForm != undefined){
+    if(this.configForm != undefined && this.miaForm){
       this.miaForm.updateItemByForm();
     }
 

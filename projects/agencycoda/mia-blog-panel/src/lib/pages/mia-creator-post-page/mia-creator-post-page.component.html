@@ -1,11 +1,12 @@
 <div class="container">
     <h1>{{ config.title }}</h1>
-    <div class="navigation">
+    <div *ngIf="isLoading" class="">Loading...</div>
+    <div *ngIf="!isLoading" class="navigation">
         <div *ngFor="let tab of tabs; let index = index" class="link" [ngClass]="{'link-active': sectionSelectedIndex == index}" (click)="onClickTab(tab, index)">{{ tab.title }}</div>
         <div class="link">Publish</div>
     </div>
 
-    <div *ngIf="configForm" class="content">
+    <div *ngIf="configForm && !isLoading" class="content">
         <ng-container *ngFor="let tab of tabs; let index = index">
             <div *ngIf="sectionSelectedIndex == index" class="settings-page-general">
                 <h2>{{ tab.title }}</h2>
@@ -15,7 +16,7 @@
 
     </div>
 
-    <div class="buttons">
+    <div *ngIf="!isLoading" class="buttons">
         <button *ngIf="!isSending" mat-stroked-button matDialogClose>Cancel</button>
         <button *ngIf="!isSending && (sectionSelectedIndex == tabs.length-1 || post.id > 0)" mat-raised-button color="primary" (click)="onClickSave()">Publish</button>
         <button *ngIf="!isSending && (sectionSelectedIndex < tabs.length-1 && post.id == 0)" mat-raised-button color="primary" (click)="onClickContinue()">Continue</button>
