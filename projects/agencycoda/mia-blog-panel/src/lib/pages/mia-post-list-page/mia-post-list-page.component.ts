@@ -57,9 +57,9 @@ export class MiaPostListPageComponent implements OnInit {
       { key: 'id', type: 'string', title: '#', field_key: 'id' },
       { key: 'photo', type: 'photo', title: 'Miniature', field_key: ['photo_featured', 'url'] },
       { key: 'title', type: 'string', title: 'Title', field_key: 'title' },
-      { key: 'user', type: 'user', title: 'Submitted By', extra: { 
+      /*{ key: 'user', type: 'user', title: 'Submitted By', extra: { 
         field_firstname: ['creator', 'firstname'], field_lastname: ['creator', 'lastname']
-      } },
+      } },*/
       { key: 'updated_at', type: 'date', title: 'Last Update', field_key: 'updated_at' },
       { key: 'visibility', type: 'icon-toggle', title: '', field_key: 'status', extra: {
         key_action: 'click-lock',
@@ -80,8 +80,13 @@ export class MiaPostListPageComponent implements OnInit {
   loadConfig() {
     this.config.title = this.configList?.title ?? 'News';
 
-    this.config.buttons.push({ key: 'organize', title: 'Organize', icon: 'edit' });
-    this.config.buttons.push({ key: 'add', title: '+ Add new Article', icon: 'edit' });
+    if(this.configList?.showOrganizeButton){
+      this.config.buttons.push({ key: 'organize', title: 'Organize', icon: 'edit' });
+    }
+    
+    if(this.configList?.showAddButton){
+      this.config.buttons.push({ key: 'add', title: '+ Add new Article', icon: 'edit' });
+    }
 
     this.loadTableConfig();
   }
